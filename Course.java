@@ -1,7 +1,8 @@
    /** TODO: initilise all the attributes*/
-   /** Constructor initializes all the attributes of the Assessment class */
 
 package course;
+
+import java.util.ArrayList;
 import java.util.List;
 
 class Assessment {
@@ -15,6 +16,7 @@ class Assessment {
    private String dueDateTime; 
    private String hideDateTime;
 
+   /** Constructor initializes all the attributes of the Assessment class */
    public Assessment(String name, String description, int points, 
                      String submissionType, boolean group, String groupingName, 
                      String publishDateTime, String dueDateTime, String hideDateTime) {
@@ -67,8 +69,14 @@ class Assessment {
 }
 
 public class Course {
-   private List<Assessment> assessments;
+   // Initialise assessments list so we can store valid Assessment objects in it.
+   private List<Assessment> assessments = new ArrayList<>();
    
+   // Getter for assessments list to verify conditions for JUnit tests.
+   public List<Assessment> getAssessments() {
+      return assessments;
+   }
+
    public boolean createNewAssessment(String name, String description, int points, 
                                       String submissionType, boolean group, String groupingName, 
                                       String publishDateTime, String dueDateTime, String hideDateTime) {
