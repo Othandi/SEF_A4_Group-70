@@ -5,7 +5,7 @@ Welcome to our Group Repository for Assessment 4 of Software Engineering Fundame
 
 ## Group Members
 - Othandi is Jose
-- untitled-brie is Minh
+- untitled-brie is Minh Duc
 - JasmineAlish is Jasmine
 
 
@@ -14,7 +14,10 @@ Welcome to our Group Repository for Assessment 4 of Software Engineering Fundame
 - Jose updated the `Course.java` file. It now includes the Validations for Conditions 1, 2, 3, and 7
 - Jose created getters and initialised assessment list
 - Jose set-up variables
+<<<<<<< HEAD
 
 ### Minh
 
 ### Jasmine
+=======
+>>>>>>> 0057c6785cdae8ae2a64a3cdd7a3b3f6260b8a82
