@@ -10,6 +10,11 @@ Welcome to our Group Repository for Assessment 4 of Software Engineering Fundame
 
 
 ## Updates from Each Member
+### Jose
 - Jose updated the `Course.java` file. It now includes the Validations for Conditions 1, 2, 3, and 7
 - Jose created getters and initialised assessment list
 - Jose set-up variables
+
+### Minh
+
+### Jasmine
