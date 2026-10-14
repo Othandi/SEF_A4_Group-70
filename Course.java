@@ -80,15 +80,56 @@ public class Course {
    public boolean createNewAssessment(String name, String description, int points, 
                                       String submissionType, boolean group, String groupingName, 
                                       String publishDateTime, String dueDateTime, String hideDateTime) {
-      boolean valid = true;
-      
-      //TODO: Validate all the provided parameters.
-      //if the assessment parameters meet the given conditions,
-      //   the function should create a new Assessment object, 
-      //   add it in the assessments list and then return true.
-      //else
-      //   the function should only return false.
-      
-      return valid;
+      if (!validateNameDescAndType(name, description, submissionType)){ // Jose's validation check for Conditions 1, 2, 3, and 7
+         return false;
+      }
+
+      //TODO : Jasmine's validation check (Conditions 4, 5, 6) goes here
+      //TODO: Minh's validation check (Conditions 8, 9, 10, 11) goes here
+
+      // If all conditions pass, create the Assessment object, store it in the list, and return true
+      Assessment newAssessment = new Assessment(name, description, points, submissionType, group,
+      groupingName, publishDateTime, dueDateTime, hideDateTime);
+
+      assessments.add(newAssessment);
+      return true;
+      }                            
+
+      /**
+       * Jose's Validation for Conditions 1, 2, 3, and 7.
+       * Validates assessment name uniqueness, non-blank name, minimum 3-word description,
+       * and allowed submission file types ("pdf", "zip", "doc"(.))
+       */
+
+      private boolean validateNameDescAndType(String name, String description, String submissionType) {
+         // Condition 2: The assessment name cannot be blank
+         if (name == null || name.trim().isEmpty()){
+            return false;
+         }
+
+         // Condition 1: The assessment name must be unique to the course
+         for (Assessment existingAssessment : assessments) {
+            if (existingAssessment.getName().equals(name)) {
+               return false;
+            }
+         }
+
+         // Condition 3: The assessment description must have at least 3 words
+         if (description == null || description.trim().isEmpty()) {
+            return false;
+         }
+
+         // Split description by whitespace to count the exact number of words
+         String[] words = description.trim().split("\\s+");
+         if (words.length < 3) {
+            return false;
+         }
+
+         // Condition 7: Submission type must be one of ("pdf, zip ,doc)
+         if (submissionType == null || (!submissionType.equals("pdf") && !submissionType.equals("zip") && !submissionType.equals("doc"))) {
+            return false;
+         }
+     
+      return true;
    }
 }
