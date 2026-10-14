@@ -5,5 +5,5 @@ Welcome to our Group Repository for Assessment 4 of Software Engineering Fundame
 
 ## Group Members
 - Othandi is Jose
-- untitled-brie is Minh
+- untitled-brie is Minh Duc
 - JasmineAlish is Jasmine
