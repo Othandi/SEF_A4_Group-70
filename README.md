@@ -15,9 +15,15 @@ Welcome to our Group Repository for Assessment 4 of Software Engineering Fundame
 - Jose created getters and initialised assessment list
 - Jose set-up variables
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 83f0f73dbd175df8d708e30c07c127a2fa055150
 
 ### Minh
 
 ### Jasmine
+<<<<<<< HEAD
 =======
 >>>>>>> 0057c6785cdae8ae2a64a3cdd7a3b3f6260b8a82
+=======
+>>>>>>> 83f0f73dbd175df8d708e30c07c127a2fa055150
