@@ -30,10 +30,10 @@ public class CourseTest{
     public void testCondition1_DuplicateAssessmentName_ReturnsFalse() {
         // Precondition step: Add a valid first assessment to the course
         boolean setupResult = course.createNewAssessment(
-            "Assessment 1",
-            "Complete the software architecture report",
+            "assessment 1",
+            "complete the software architecture report",
             25,
-            "pd",
+            "pdf",
             false,
             "",
             "20/10/2026 09:00",
@@ -44,11 +44,11 @@ public class CourseTest{
         // Precondition assertions: Verify that the first assessment was added successfully
         assertTrue(setupResult, "Precondition failed: Initial valid assessment should return true.");
         assertEquals(1, course.getAssessments().size(), "Precondition failed: Assessments list should containn 1 item.");
-        assertEquals("Assessment 1", course.getAssessments().get(0).getName());
+        assertEquals("assessment 1", course.getAssessments().get(0).getName());
 
         // Action: Attempt to create a second assessment with the duplicate name "Assessment 1"
         boolean testResult = course.createNewAssessment(
-            "Assessment 1", // Duplicate name
+            "assessment 1", // Duplicate name
             "Complete the software architecture report",
             25,
             "pdf",
@@ -72,7 +72,7 @@ public class CourseTest{
     @Test
     public void testCondition2_BlankAssessmentName_ReturnsFalse() {
         // Precondition assertion: Verify the assessment list is empty prior to test execution
-        assertEquals(0, coures.getAssesments().size(), "Precondition failed: Assessments list should be empty initially.");
+        assertEquals(0, course.getAssessments().size(), "Precondition failed: Assessments list should be empty initially.");
 
         // Action: Attempt to create an assessment with a blank name ""
         boolean testResult = course.createNewAssessment(
@@ -102,7 +102,7 @@ public class CourseTest{
 
         //Action: Attempt to create an assessment with a 2-word description ("two words")
         boolean testResult = course.createNewAssessment(
-            "Assessment 2",
+            "assessment 2",
             "two words",
             20,
             "doc",
@@ -115,7 +115,7 @@ public class CourseTest{
 
         // Postcondition assertions: Verify function returns false and assessments list remains empty
         assertFalse(testResult, "Condition 3 failed: Description with fewer than 3 words should return false.");
-        assertEquals(0, coures.getAssessment().size(), "Postcondition failed: Assessment must not be stored when description has < 3 words.");
+        assertEquals(0, course.getAssessments().size(), "Postcondition failed: Assessment must not be stored when description has < 3 words.");
     }
 
     /**
@@ -129,7 +129,7 @@ public class CourseTest{
 
         // Action: Attempt to create an assessment with an invalid submissionType ("txt")
         boolean testResult = course.createNewAssessment(
-            "Assessment 3",
+            "assessment 3",
             "submit your final project code",
             40,
             "txt",
