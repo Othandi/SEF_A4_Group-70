@@ -1,4 +1,4 @@
-   /** TODO: initilise all the attributes*/
+/** TODO: initilise all the attributes*/
 
 package course;
 
@@ -84,7 +84,11 @@ public class Course {
          return false;
       }
 
-      //TODO : Jasmine's validation check (Conditions 4, 5, 6) goes here
+      // Jasmine's validation check for Conditions 4, 5, and 6
+      if (!isValidPoints(points)) {
+         return false;
+      }
+
       //TODO: Minh's validation check (Conditions 8, 9, 10, 11) goes here
 
       // If all conditions pass, create the Assessment object, store it in the list, and return true
@@ -93,43 +97,73 @@ public class Course {
 
       assessments.add(newAssessment);
       return true;
-      }                            
+   }                            
 
-      /**
-       * Jose's Validation for Conditions 1, 2, 3, and 7.
-       * Validates assessment name uniqueness, non-blank name, minimum 3-word description,
-       * and allowed submission file types ("pdf", "zip", "doc"(.))
-       */
+   /**
+    * Jose's Validation for Conditions 1, 2, 3, and 7.
+    * Validates assessment name uniqueness, non-blank name, minimum 3-word description,
+    * and allowed submission file types ("pdf", "zip", "doc"(.))
+    */
+   private boolean validateNameDescAndType(String name, String description, String submissionType) {
+      // Condition 2: The assessment name cannot be blank
+      if (name == null || name.trim().isEmpty()){
+         return false;
+      }
 
-      private boolean validateNameDescAndType(String name, String description, String submissionType) {
-         // Condition 2: The assessment name cannot be blank
-         if (name == null || name.trim().isEmpty()){
+      // Condition 1: The assessment name must be unique to the course
+      for (Assessment existingAssessment : assessments) {
+         if (existingAssessment.getName().equals(name)) {
             return false;
          }
+      }
 
-         // Condition 1: The assessment name must be unique to the course
-         for (Assessment existingAssessment : assessments) {
-            if (existingAssessment.getName().equals(name)) {
-               return false;
-            }
-         }
+      // Condition 3: The assessment description must have at least 3 words
+      if (description == null || description.trim().isEmpty()) {
+         return false;
+      }
 
-         // Condition 3: The assessment description must have at least 3 words
-         if (description == null || description.trim().isEmpty()) {
-            return false;
-         }
+      // Split description by whitespace to count the exact number of words
+      String[] words = description.trim().split("\\s+");
+      if (words.length < 3) {
+         return false;
+      }
 
-         // Split description by whitespace to count the exact number of words
-         String[] words = description.trim().split("\\s+");
-         if (words.length < 3) {
-            return false;
-         }
-
-         // Condition 7: Submission type must be one of ("pdf, zip ,doc)
-         if (submissionType == null || (!submissionType.equals("pdf") && !submissionType.equals("zip") && !submissionType.equals("doc"))) {
-            return false;
-         }
+      // Condition 7: Submission type must be one of ("pdf, zip ,doc)
+      if (submissionType == null || (!submissionType.equals("pdf") && !submissionType.equals("zip") && !submissionType.equals("doc"))) {
+         return false;
+      }
      
+      return true;
+   }
+
+   /**
+    * Jasmine's Validation for Conditions 4, 5, and 6.
+    * Checks that points are above 0, no more than 50,
+    * and that the course total stays at or under 100.
+    */
+   private boolean isValidPoints(int points) {
+      // Condition 4: points must be greater than 0
+      if (points <= 0) {
+         return false;
+      }
+
+      // Condition 5: a single assessment cannot be worth more than 50
+      if (points > 50) {
+         return false;
+      }
+
+      // Condition 6: add up the points of the assessments already in the course
+      int currentTotal = 0;
+      for (Assessment existingAssessment : assessments) {
+         currentTotal += existingAssessment.getPoints();
+      }
+
+      // The new total cannot go over 100
+      if (currentTotal + points > 100) {
+         return false;
+      }
+
+      // All points checks passed
       return true;
    }
 }
