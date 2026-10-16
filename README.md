@@ -19,3 +19,6 @@ Welcome to our Group Repository for Assessment 4 of Software Engineering Fundame
 ### Minh
 
 ### Jasmine
+- Jasmine added the points validation (Conditions 4, 5 and 6) to `Course.java`
+- Jasmine wrote JUnit tests for Conditions 4, 5, 6 and Case 12 (All Valid) in `CourseTest.java`
+- All tests passing
