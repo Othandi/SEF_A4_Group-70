@@ -21,14 +21,14 @@ public class CourseTest{
     }
 
     /**
-     * Test Case for Condition : Assessment name must be unique to the course.
+     * Test Case for Condition 1: Assessment name must be unique to the course.
      * Boundary Test Data: Adding an assessment with the exact same name
      * as an assessment already stored in the course's assessments list.
      */
 
     @Test
     public void testCondition1_DuplicateAssessmentName_ReturnsFalse() {
-        // Precondition step: Add a valid first assessment to the course
+        // Precondition step: Add a valid first assessment to the course (25 points, "pdf")
         boolean setupResult = course.createNewAssessment(
             "assessment 1",
             "complete the software architecture report",
@@ -43,15 +43,16 @@ public class CourseTest{
 
         // Precondition assertions: Verify that the first assessment was added successfully
         assertTrue(setupResult, "Precondition failed: Initial valid assessment should return true.");
-        assertEquals(1, course.getAssessments().size(), "Precondition failed: Assessments list should containn 1 item.");
+        assertEquals(1, course.getAssessments().size(), "Precondition failed: Assessments list should contain 1 item.");
         assertEquals("assessment 1", course.getAssessments().get(0).getName());
 
-        // Action: Attempt to create a second assessment with the duplicate name "Assessment 1"
+        // Action: Attempt to create a second assessment with the duplicate name "assessment 1"
+        // but DIFFERENT description, points (30), and submissionType ("zip")
         boolean testResult = course.createNewAssessment(
             "assessment 1", // Duplicate name
-            "Complete the software architecture report",
-            25,
-            "pdf",
+            "write unit tests for course class",
+            30,
+            "zip",
             false,
             "",
             "20/10/2026 09:00",
@@ -59,10 +60,11 @@ public class CourseTest{
             "01/11/2026 23:59"
         );
 
-        // Postcondition assertions: Verify function returns false, list size remains 1, and original attributes are untouched
+        // Postcondition assertions: Verify function returns false, list size remains 1, and original attributes (25 and "pdf") are untouched
         assertFalse(testResult, "Condition 1 failed: Duplicate assessment name should return false.");
         assertEquals(1, course.getAssessments().size(), "Postcondition failed: Duplicate assessment must not be added to list.");
-        assertEquals(25, course.getAssessments().get(0).getPoints(), "Postcondition failed: Existing assessment attributes must not be modified.");
+        assertEquals(25, course.getAssessments().get(0).getPoints(), "Postcondition failed: Existing assessment points must remain 25.");
+        assertEquals("pdf", course.getAssessments().get(0).getSubmissionType(), "Postcondition failed: Existing submission type must remain 'pdf'.");
     }
 
     /**
