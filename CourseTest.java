@@ -91,8 +91,9 @@ public class CourseTest {
         // condtion 10: String arguements representing date times should use the specified format and is legal.  
         // precondition: initial assessments list is empty (size == 0)
         // test data:
-            // set 1: wrong format but legal date/time, publish is valid.
-            // set 2: right format but illegal date/time (leap year/ 24:00), due date is valid.
+            // set 1: wrong format but legal date time (due date).
+            // set 2: right format but illegal date (leap year), (publish date)
+            // set 3: right format but impossible time (24:00) (hide date)
         // postcondition: assessments list stayed empty, both sets returned false.
 
         // check precondition:
@@ -106,9 +107,9 @@ public class CourseTest {
             "pdf",
             false,
             "",
-            "01/10/2026 08:00", // publish date format is correct
+            "01/10/2026 08:00", // publish date format is valid
             "03-10-2026 08:00", // date sep: "-"
-            "04/10/2026 08:00PM"); // 12hr format
+            "04/10/2026 08:00"); // hide date is valid
 
         // attempt set 2
         boolean set2CreateAssessmentsOutcome = course.createNewAssessment(
@@ -120,11 +121,24 @@ public class CourseTest {
             "",
             "29/02/2026 20:00", // right format, leap year
             "03/10/2026 08:00", // due date is valid
-            "07/10/2026 24:00"); // right format, impossible time.
+            "07/10/2026 23:00"); // hideDateTime is valid
+
+        // attempt set 3
+        boolean set3CreateAssessmentsOutcome = course.createNewAssessment(
+            "assignment 9k",
+            "bloodline shattering assignment",
+            40,
+            "zip",
+            false,
+            "",
+            "17/12/2025 20:00", // publish date is valid
+            "18/12/2025 21:00", // due date is valid
+            "19/12/2025 24:00"); // impossible time
 
         // check post conditions
         assertEquals(false, set1CreateAssessmentsOutcome, "Condition 10 failed: Wrongly formatted legal dates/times should return false");
         assertEquals(false, set2CreateAssessmentsOutcome, "Condition 10 failed: Illegal dates/times should return false");
+        assertEquals(false, set3CreateAssessmentsOutcome, "Condition 10 failed: Impossible times should return false");
         assertEquals(0, course.getAssessments().size(), "Postcondtion 10 failed: list should be empty after 2 add attempts with invalid dates/times");
     }
 
