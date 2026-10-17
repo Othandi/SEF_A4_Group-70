@@ -22,10 +22,10 @@ public class CourseTest {
         // condtion 8: if group is true, groupingName is not empty.
         // precondition: assessments list is empty (size == 0)
         // test data: group=true, groupingName="   "
-        // postcondition: createNewAssessment returns false, assessments list stays empty (size == 0)
+        // postcondition: createNewAssessment returned false, assessments list stayed empty (size == 0)
 
         // check precondtions
-        assertEquals(0, course.getAssessments().size(), "Precondition failed: Assessments should be empty initially");
+        assertEquals(0, course.getAssessments().size(), "Precondition 8 failed: Assessments should be empty initially");
 
         // attempt to create assessments with group==true and groupName = "  " (all other parameters valid)
         boolean createAssessmentsOutcome = course.createNewAssessment(
@@ -50,7 +50,7 @@ public class CourseTest {
         // condtion 9: groupingName must be unique among all assessments.
         // precondition: assessment list has 1 Assignment object, whose group name is "group1"
         // test data: group=true, groupingName="group1 "
-        // postcondition: createNewAssessment returns false, length of assessments list stays 1.
+        // postcondition: createNewAssessment returned false, length of assessments list stayed 1.
         
         // check precondition
         boolean preconditionCreateNewAsmOutcome = course.createNewAssessment(            
@@ -64,9 +64,9 @@ public class CourseTest {
             "03/10/2026 08:00",
             "04/10/2026 08:00"); // valid object
 
-        assertEquals(true, preconditionCreateNewAsmOutcome, "Precondition Failed: initial assignment object should be valid");
-        assertEquals(1, course.getAssessments().size(), "Precondition Failed: list should have 1 valid object");
-        assertEquals("group1", course.getAssessments().getFirst().getGroupingName(), "Precondition Failed: valid object group name should be \"group1\"");
+        assertEquals(true, preconditionCreateNewAsmOutcome, "Precondition 9 Failed: initial assignment object should be valid");
+        assertEquals(1, course.getAssessments().size(), "Precondition 9 Failed: list should have 1 valid object");
+        assertEquals("group1", course.getAssessments().getFirst().getGroupingName(), "Precondition 9 Failed: valid object group name should be \"group1\"");
 
         // attempt to create assessments with non-unique characters, with whitespace(all other parameters valid)
         boolean createAssessmentsOutcome = course.createNewAssessment(            
@@ -93,10 +93,10 @@ public class CourseTest {
         // test data:
             // set 1: wrong format but legal date/time, publish is valid.
             // set 2: right format but illegal date/time (leap year/ 24:00), due date is valid.
-        // postcondition: assessments list stays empty, both sets returned failed.
+        // postcondition: assessments list stayed empty, both sets returned false.
 
         // check precondition:
-        assertEquals(0, course.getAssessments().size(), "Precondtion failed: Initial List should be empty!");
+        assertEquals(0, course.getAssessments().size(), "Precondtion 10 failed: Initial List should be empty!");
         
         // attempt set 1
         boolean set1CreateAssessmentsOutcome = course.createNewAssessment(
@@ -125,6 +125,19 @@ public class CourseTest {
         // check post conditions
         assertEquals(false, set1CreateAssessmentsOutcome, "Condition 10 failed: Wrongly formatted legal dates/times should return false");
         assertEquals(false, set2CreateAssessmentsOutcome, "Condition 10 failed: Illegal dates/times should return false");
-        assertEquals(0, course.getAssessments().size(), "Precondition failed: list should be empty after 2 add attempt with invalid date time");
+        assertEquals(0, course.getAssessments().size(), "Postcondtion 10 failed: list should be empty after 2 add attempt with invalid date time");
+    }
+
+
+    @Test 
+    public void publishDateDueDateHideDateInvalidSequenceReturnFalse(){
+        // condition 11: publish time is before due time, due time is before hide time
+        // precondtion: initial assessments list is empty (size == 0)
+        // test data:
+            // set 1: due is before publish
+            // set 2: hide is before due
+        // postcondition: assessments list stayed empty, both set returned false
+
+        // check precondition
     }
 }
