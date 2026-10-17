@@ -16,6 +16,7 @@ public class CourseTest {
         course = new Course();
     }
 
+
     @Test
     public void groupIsTrueSpaceOnlyNameReturnsFalse(){
         // condtion 8: if group is true, groupingName is not empty.
@@ -39,9 +40,10 @@ public class CourseTest {
             "10/10/2026 08:00");
 
         // check postconditions
-        assertEquals(false, createAssessmentsOutcome, "Condition 1 failed: for group=true, empty group name must return false");
-        assertEquals(0, course.getAssessments().size(), "Condition 1 failed: empty group names must not be added to list");
+        assertEquals(false, createAssessmentsOutcome, "Condition 8 failed: for group=true, empty group name must return false");
+        assertEquals(0, course.getAssessments().size(), "Condition 8 failed: empty group names must not be added to list");
     }
+
 
     @Test
     public void groupNameNotUniqueWithWhitespaceReturnsFalse(){
@@ -79,7 +81,50 @@ public class CourseTest {
             "03/10/2026 08:00"); // valid object
         
         // check postcondtion
-        assertEquals(false, createAssessmentsOutcome, "Condition 1 Failed: non-unique group name should return false");
-        assertEquals(1, course.getAssessments().size(), "Condition 1 Failed: assessment list size should stay as 1 after attempt to add invalid object");
-    } 
+        assertEquals(false, createAssessmentsOutcome, "Condition 9 Failed: non-unique group name should return false");
+        assertEquals(1, course.getAssessments().size(), "Condition 9 Failed: assessment list size should stay as 1 after attempt to add invalid object");
+    }
+    
+
+    @Test
+    public void invalidDateTimesCasesReturnsFalse(){
+        // condtion 10: String arguements representing date times should use the specified format and is legal.  
+        // precondition: initial assessments list is empty (size == 0)
+        // test data:
+            // set 1: wrong format but legal date/time, publish is valid.
+            // set 2: right format but illegal date/time (leap year/ 24:00), due date is valid.
+        // postcondition: assessments list stays empty, both sets returned failed.
+
+        // check precondition:
+        assertEquals(0, course.getAssessments().size(), "Precondtion failed: Initial List should be empty!");
+        
+        // attempt set 1
+        boolean set1CreateAssessmentsOutcome = course.createNewAssessment(
+            "assignment 2b",
+            "please!! do the assignment",
+            40,
+            "pdf",
+            false,
+            "",
+            "01/10/2026 08:00", // publish date format is correct
+            "03-10-2026 08:00", // date sep: "-"
+            "04/10/2026 08:00PM"); // 12hr format
+
+        // attempt set 2
+        boolean set2CreateAssessmentsOutcome = course.createNewAssessment(
+            "assignment 2c",
+            "life shattering assignment",
+            50,
+            "pdf",
+            false,
+            "",
+            "29/02/2026 20:00", // right format, leap year
+            "03/10/2026 08:00", // due date is valid
+            "07/10/2026 24:00"); // right format, impossible time.
+
+        // check post conditions
+        assertEquals(false, set1CreateAssessmentsOutcome, "Condition 10 failed: Wrongly formatted legal dates/times should return false");
+        assertEquals(false, set2CreateAssessmentsOutcome, "Condition 10 failed: Illegal dates/times should return false");
+        assertEquals(0, course.getAssessments().size(), "Precondition failed: list should be empty after 2 add attempt with invalid date time");
+    }
 }
