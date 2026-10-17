@@ -125,7 +125,7 @@ public class CourseTest {
         // check post conditions
         assertEquals(false, set1CreateAssessmentsOutcome, "Condition 10 failed: Wrongly formatted legal dates/times should return false");
         assertEquals(false, set2CreateAssessmentsOutcome, "Condition 10 failed: Illegal dates/times should return false");
-        assertEquals(0, course.getAssessments().size(), "Postcondtion 10 failed: list should be empty after 2 add attempt with invalid date time");
+        assertEquals(0, course.getAssessments().size(), "Postcondtion 10 failed: list should be empty after 2 add attempts with invalid dates/times");
     }
 
 
@@ -139,5 +139,36 @@ public class CourseTest {
         // postcondition: assessments list stayed empty, both set returned false
 
         // check precondition
+        assertEquals(0, course.getAssessments().size(), "Precondtion 11 failed: initial assessments list should be empty");
+
+        // attempt set 1
+        boolean set1CreateAssessmentsOutcome = course.createNewAssessment(
+            "assignment 20b",
+            "build a dyson sphere",
+            15,
+            "zip",
+            false,
+            "",
+            "01/10/2026 08:00", 
+            "01/10/2026 07:59", // due 1 minute before publish date
+            "01/10/2026 08:00");
+        
+        // attempt set 2
+            boolean set2CreateAssessmentsOutcome = course.createNewAssessment(
+            "assignment 21b",
+            "build TWO dyson spheres",
+            20,
+            "zip",
+            false,
+            "",
+            "05/10/2026 08:00", 
+            "06/10/2026 08:00", 
+            "06/10/2026 07:59"); // hide is 1 minite before due
+
+        // check postconditions
+        assertEquals(false, set1CreateAssessmentsOutcome, "Condition 11 failed: due time before publish time should return false");
+        assertEquals(false, set2CreateAssessmentsOutcome, "Condition 11 failed: hide time before due time should return false");
+        assertEquals(0, course.getAssessments().size(), "Condition 11 failed: assessments list should be empty after 2 add attempts" +
+                                                        " with impossible date time sequence");
     }
 }
