@@ -390,7 +390,7 @@ public class CourseTest{
         assertEquals(0, course.getAssessments().size(), "Precondition 8 failed: Assessments should be empty initially");
 
         // attempt to create assessments with group==true and groupName = "  " (all other parameters valid)
-        boolean createAssessmentsOutcome = course.createNewAssessment(
+        boolean createAssessmentsOutcome1 = course.createNewAssessment(
             "assignment 1",
             "do the assignment",
             25,
@@ -402,7 +402,7 @@ public class CourseTest{
             "10/10/2026 08:00");
 
         // check postconditions
-        assertEquals(false, createAssessmentsOutcome, "Condition 8 failed: for group=true, empty group name must return false");
+        assertEquals(false, createAssessmentsOutcome1, "Condition 8 failed: for group=true, empty group name must return false");
         assertEquals(0, course.getAssessments().size(), "Condition 8 failed: empty group names must not be added to list");
     }
 
@@ -421,7 +421,7 @@ public class CourseTest{
             20,
             "doc",
             true, // group == true
-            "group1", // group name == "    "
+            "group1", 
             "02/10/2026 08:00",
             "03/10/2026 08:00",
             "04/10/2026 08:00"); // valid object
@@ -432,7 +432,7 @@ public class CourseTest{
         // attempt to create assessments with non-unique characters, with whitespace(all other parameters valid)
         boolean createAssessmentsOutcome = course.createNewAssessment(            
             "assignment 3",
-            "simple assignment",
+            "simple assignment test",
             10,
             "doc",
             true, // group == true

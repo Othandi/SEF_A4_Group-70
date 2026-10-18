@@ -176,10 +176,10 @@ public class Course {
    /**
     * Minh Duc's Validation for Conditions 8, 9, 10, 11.
     */
-     private boolean validateGroupNameDateTimes(boolean group, String groupingName,
+   private boolean validateGroupNameDateTimes(boolean group, String groupingName,
                      String publishDateTime, String dueDateTime, String hideDateTime) {
       
-      // condtion 8: if group is true, groupingName is not empty.
+      // condition 8: if group is true, groupingName is not empty.
       if (group && (groupingName == null || groupingName.isEmpty() || groupingName == "" || groupingName.isBlank())) {
       return false;
       }
@@ -187,7 +187,7 @@ public class Course {
       // condtion 9: groupingName must be unique among all group assessments.
       for (Assessment existingAssessment : assessments) {
          if (existingAssessment.isGroup() && 
-        		 existingAssessment.getGroupingName().equals(groupingName.strip())) {
+        		 ((existingAssessment.getGroupingName().strip()).equals(groupingName.strip()))) {
             return false;
          }
       }
