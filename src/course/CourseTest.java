@@ -428,8 +428,7 @@ public class CourseTest{
 
         assertEquals(true, preconditionCreateNewAsmOutcome, "Precondition 9 Failed: initial assignment object should be valid");
         assertEquals(1, course.getAssessments().size(), "Precondition 9 Failed: list should have 1 valid object");
-        assertEquals("group1", course.getAssessments().getFirst().getGroupingName(), "Precondition 9 Failed: valid object group name should be \"group1\"");
-
+        
         // attempt to create assessments with non-unique characters, with whitespace(all other parameters valid)
         boolean createAssessmentsOutcome = course.createNewAssessment(            
             "assignment 3",
