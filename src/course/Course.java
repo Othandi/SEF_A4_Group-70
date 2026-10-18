@@ -5,6 +5,11 @@ package course;
 import java.util.ArrayList;
 import java.util.List;
 
+// validation specific imports
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
+
 class Assessment {
    private String name;
    private String description;
@@ -89,7 +94,9 @@ public class Course {
          return false;
       }
 
-      //TODO: Minh's validation check (Conditions 8, 9, 10, 11) goes here
+      // Minh Duc's validation check for condition 8, 9, 10, 11
+      if (!validateGroupNameDateTimes(group, groupingName, publishDateTime, dueDateTime, hideDateTime))
+         return false; 
 
       // If all conditions pass, create the Assessment object, store it in the list, and return true
       Assessment newAssessment = new Assessment(name, description, points, submissionType, group,
@@ -163,7 +170,56 @@ public class Course {
          return false;
       }
 
-      // All points checks passed
       return true;
    }
+
+   /**
+    * Minh Duc's Validation for Conditions 8, 9, 10, 11.
+    */
+     private boolean validateGroupNameDateTimes(boolean group, String groupingName,
+                     String publishDateTime, String dueDateTime, String hideDateTime) {
+      
+      // condtion 8: if group is true, groupingName is not empty.
+      if (group && (groupingName == null || groupingName.isEmpty() || groupingName == "" || groupingName.isBlank())) {
+      return false;
+      }
+
+      // condtion 9: groupingName must be unique among all assessments.
+      for (Assessment existingAssessment : assessments) {
+         if (existingAssessment.getGroupingName().equals(groupingName.strip())) {
+            return false;
+         }
+      }
+
+      // condition 10: 
+      // Date times is formatted in the format DD/MM/YYYY hh:mm and is strictly validated
+      // code was created referencing [1]
+      // initialize correct date times format
+      final DateTimeFormatter FORMAT = DateTimeFormatter
+      .ofPattern("dd/MM/uuuu HH:mm").withResolverStyle(ResolverStyle.STRICT);
+      try{
+         // if string does not match FORMAT or isn't an actual date, throws exception
+         LocalDateTime.parse(publishDateTime, FORMAT);
+         LocalDateTime.parse(dueDateTime, FORMAT);
+         LocalDateTime.parse(hideDateTime, FORMAT);
+      }
+      catch (Exception e){
+         return false;
+      }
+
+      // condition 11: publish time is before due time, due time is before hide time
+      LocalDateTime publishTime = LocalDateTime.parse(publishDateTime, FORMAT);
+      LocalDateTime dueTime = LocalDateTime.parse(dueDateTime, FORMAT);
+      LocalDateTime hideTime = LocalDateTime.parse(hideDateTime, FORMAT);
+
+      if (!(publishTime.isBefore(dueTime) && dueTime.isBefore(hideTime))) {
+      return false;
+      }
+   
+      return true;  
+   } 
+   // All points checks passed
 }
+
+// References
+// [1] https://www.baeldung.com/java-string-valid-date
