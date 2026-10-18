@@ -177,7 +177,7 @@ public class CourseTest {
             "",
             "05/10/2026 08:00", 
             "06/10/2026 08:00", 
-            "06/10/2026 07:59"); // hide is 1 minite before due
+            "06/10/2026 07:59"); // hide is 1 minute before due
 
         // check postconditions
         assertEquals(false, set1CreateAssessmentsOutcome, "Condition 11 failed: due time before publish time should return false");

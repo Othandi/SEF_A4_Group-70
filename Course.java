@@ -134,8 +134,8 @@ public class Course {
       LocalDateTime dueTime = LocalDateTime.parse(dueDateTime, FORMAT);
       LocalDateTime hideTime = LocalDateTime.parse(hideDateTime, FORMAT);
 
-      if (!publishTime.isBefore(dueTime) || !dueTime.isBefore(hideTime)) {
-         return false;
+      if (!(publishTime.isBefore(dueTime) && dueTime.isBefore(hideTime))) {
+      return false;
       }
    
       return true;  
