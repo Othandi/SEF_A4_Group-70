@@ -17,6 +17,10 @@ Welcome to our Group Repository for Assessment 4 of Software Engineering Fundame
 - Jose set-up JUnit Testing
 
 ### Minh
+- Minh added validation for Conditions 8, 9, 10, and 11 to `Course.java`
+- Minh added JUnit tests for Conditions 8, 9, 10 and 11 to `CourseTest.java`
+- Minh fixed condition 9 to pass all tests.
+
 
 ### Jasmine
 - Jasmine added the points validation (Conditions 4, 5 and 6) to `Course.java`
