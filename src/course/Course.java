@@ -184,7 +184,7 @@ public class Course {
       return false;
       }
 
-      // condtion 9: groupingName must be unique among all assessments.
+      // condtion 9: groupingName must be unique among all group assessments.
       for (Assessment existingAssessment : assessments) {
          if (existingAssessment.isGroup() && 
         		 existingAssessment.getGroupingName().equals(groupingName.strip())) {
